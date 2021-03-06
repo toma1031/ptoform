@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block main %}
+<div class="form">
+    <form action="/" method="POST">
+      <h1>Chose Supervisor</h1>
+      <select name=”Supervisor”>
+        <option value="john">John</option>
+        <option value=”toma”>Toma</option>
+        <option value=”mike”>Mike</option>
+      </select>
+      <h2>Chose Date</h2>
+      <p>Request Date from</p>
+        <input type="date" name="Request Date from" required>
+      <p>Request Date to</p>
+        <input type="date" name="Request Date to" required>
+        <h3>Note</h3>
+        <input type="text" name="Note">
+        <input type="submit" name="Submit">
+    </form>
+</div>
+{% endblock main %}
