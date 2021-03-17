@@ -2,3 +2,12 @@
   background: pink;
   height: 60px;
 }
+
+.title {
+  font-size: 20px;
+  text-decoration: none;
+}
+
+.title:link, .title:visited, .title:hover, .title:active {
+  color: black;
+}

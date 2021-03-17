@@ -1,5 +1,10 @@
 <div class="navbar">
-  <a href=''>Employee Login</a>
+  <!-- <a href=''>Employee Login</a>
   <a href="superviser_login">Superviser Login</a>
+  <a href="hr_login">HR Login</a> -->
+  <a href="/" class='title'>POT Form</a>
+  <!-- <a href="{% url 'login' %}">Login</a> -->
+  {% if user.is_authenticated %}
   <a href="{% url 'logout' %}">Logout</a>
+  {% endif %}
 </div>

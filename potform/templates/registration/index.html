@@ -1,22 +1,21 @@
 {% extends 'base.html' %}
-
 {% block main %}
-<div class="form">
-    <form action="/" method="POST">
-      <h1>Chose Supervisor</h1>
-      <select name=”Supervisor”>
-        <option value="john">John</option>
-        <option value=”toma”>Toma</option>
-        <option value=”mike”>Mike</option>
-      </select>
-      <h2>Chose Date</h2>
-      <p>Request Date from</p>
-        <input type="date" name="Request Date from" required>
-      <p>Request Date to</p>
-        <input type="date" name="Request Date to" required>
-        <h3>Note</h3>
-        <input type="text" name="Note">
-        <input type="submit" name="Submit">
-    </form>
-</div>
+
+<form action="{% url 'login' %}" method="POST" novalidate>
+
+  {% if user.is_authenticated %}
+    <h1>Welcome {{ user.get_username }}!</h1>
+    {% if user.is_employee %}
+    <a href="{% url 'employee' %}">Go to Employee page</a>
+    {% endif %}
+    {% if user.is_supervisor %}
+    <a href="{% url 'supervisor' %}">Go to Supervisor page</a>
+    {% endif %}
+    {% if user.is_hr %}
+    <a href="{% url 'hr' %}">Go to HR page</a>
+    {% endif %}
+  {% endif %}
+
+
+</form>
 {% endblock main %}
