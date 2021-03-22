@@ -1,13 +1,12 @@
 {% extends 'base.html' %}
 
 {% block main %}
-  <div class="list_of_rquests_from_employee">
+  <div class="list_of_rquests">
     <h1>Welcome {{ user.get_username }}!</h1>
-    <h2>PTO Reqest List</h2>
+    <h2>Declined Reqest List</h2>
     {% for request in request_list %}
     <form action="{% url 'supervisor' %}" method="post">
       <input type="hidden" name="id" value={{ request.id }}>
-      {% csrf_token %}
       <li>
         <h2>PTO Request</h2>
         <p>ID: {{ request.id }} </p>
@@ -15,8 +14,7 @@
         <p>From: {{ request.request_date_from|date:"y/n/j" }}</p>
         <p>To: {{ request.request_date_to|date:"y/n/j" }}</p>
         <p>Note: {{ request.note }}</p>
-        <input type="submit" value="Approve" name="request"/>
-        <input type="submit" value="Decline" name="request"/>
+        <a href="{% url 'declined_request_hr_detail' request.id %}" >Detail</a>
       </li>
     </form>
     {% endfor %}

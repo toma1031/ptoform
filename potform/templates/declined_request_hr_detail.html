@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block main %}
+  <div class="rquest_detail">
+    <h1>Welcome {{ user.get_username }}!</h1>
+    <h2>Approved Reqest List</h2>
+      <div>
+        <h2>PTO Request</h2>
+        <p>ID: {{ request.id }} </p>
+        <p>Employee: {{ request.post_employee }}</p>
+        <p>From: {{ request.request_date_from|date:"y/n/j" }}</p>
+        <p>To: {{ request.request_date_to|date:"y/n/j" }}</p>
+        <p>Note: {{ request.note }}</p>
+        <a href="{% url 'declined_request_hr' %}">Back</a>
+      </div>
+  </div>
+{% endblock main %}

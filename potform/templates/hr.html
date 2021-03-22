@@ -2,20 +2,24 @@
 
 {% block main %}
   <div class="list_of_rquests_from_supervisor">
-    <li>
-      <ul>
-        
-      </ul>
-    </li>
-    <button type="submit" name="Approved">Approved</button>
-    <button type="submit" name="Decline">Decline</button>
     <div class="history">
-      <h1>History</h1>
-      <li>
-        <ul>
-          
-        </ul>
-      </li>
+      <h1>Request List</h1>
+      {% for request in request_list %}
+      <form action="{% url 'hr' %}" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="id" value={{ request.id }}>
+        <li>
+          <h2>PTO Request</h2>
+          <p>ID: {{ request.id }} </p>
+          <p>Employee: {{ request.post_employee }}</p>
+          <p>From: {{ request.request_date_from|date:"y/n/j" }}</p>
+          <p>To: {{ request.request_date_to|date:"y/n/j" }}</p>
+          <p>Note: {{ request.note }}</p>
+          <input type="submit" value="Approve" name="request"/>
+          <input type="submit" value="Decline" name="request"/>
+        </li>
+      </form>
+      {% endfor %}
     </div>
   </div>
 {% endblock main %}

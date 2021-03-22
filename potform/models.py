@@ -15,4 +15,4 @@ class RequestPTO(models.Model):
   request_date_from = models.DateTimeField(null=False)
   request_date_to = models.DateTimeField(null=False)
   note = models.TextField(null=True, blank=True, max_length=200)
-  # request = models.IntergerField(default=0)
+  request = models.IntegerField(default=3)
