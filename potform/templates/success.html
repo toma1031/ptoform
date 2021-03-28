@@ -1,8 +1,10 @@
 {% extends 'base.html' %}
 
 {% block main %}
-  <div class="success">
+  <div class="success form w-100 text-center">
     <h1 class='succeed'>Succeed to send PTO Request!</h1>
-    <a href="{% url 'employee' %}">Go to Form</a>
+    <div class="text-center">
+      <a class="btn btn-primary" href="{% url 'employee' %}">Go to Form</a>
+    </div>
   </div>
 {% endblock main %}

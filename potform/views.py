@@ -63,7 +63,6 @@ class SupervisorView(LoginRequiredMixin, ListView):
 
     def post(self, request, *args, **kwargs):
 
-# もしPOSTされたname="request"のvalue=Approveならば対象のPTOオブジェクトのrequestを1
         if  self.request.POST['request'] == 'Approve':
             queryset = RequestPTO.objects.filter(id=self.request.POST['id']).update(request=1)
         else:
@@ -91,13 +90,13 @@ class HrView(LoginRequiredMixin, ListView):
         if  self.request.POST['request'] == 'Approve':
             queryset = RequestPTO.objects.filter(id=self.request.POST['id']).update(request=4)
         else:
-            queryset = RequestPTO.objects.filter(id=self.request.POST['id']).update(request=2)
+            queryset = RequestPTO.objects.filter(id=self.request.POST['id']).update(request=2, confirm_hr=self.request.user)
         return redirect('hr')
 
 class ApprovedRequestView(LoginRequiredMixin, ListView):
     context_object_name = 'request_list'
     model = RequestPTO
-    request = RequestPTO.objects.filter(request=4)
+    queryset = RequestPTO.objects.filter(request=4)
     template_name = "approved_request_hr.html"
 
     def get(self, request, *args, **kwargs):
@@ -110,7 +109,7 @@ class ApprovedRequestView(LoginRequiredMixin, ListView):
 class ApprovedRequestDetailView(LoginRequiredMixin, DetailView):
     context_object_name = 'request'
     model = RequestPTO
-    request = RequestPTO.objects.filter(request=4)
+    queryset = RequestPTO.objects.filter(request=4)
     template_name = "approved_request_hr_detail.html"
 
     def get(self, request, *args, **kwargs):
@@ -123,7 +122,7 @@ class ApprovedRequestDetailView(LoginRequiredMixin, DetailView):
 class DeclinedRequestView(LoginRequiredMixin, ListView):
     context_object_name = 'request_list'
     model = RequestPTO
-    request = RequestPTO.objects.filter(request=2)
+    queryset = RequestPTO.objects.filter(request=2)
     template_name = "declined_request_hr.html"
 
     def get(self, request, *args, **kwargs):
@@ -133,10 +132,11 @@ class DeclinedRequestView(LoginRequiredMixin, ListView):
         else:
             return redirect('index')
 
+
 class DeclinedRequestDetailView(LoginRequiredMixin, DetailView):
     context_object_name = 'request'
     model = RequestPTO
-    request = RequestPTO.objects.filter(Q(request=4) | Q(request=2))
+    queryset = RequestPTO.objects.filter(request=2)
     template_name = "declined_request_hr_detail.html"
 
     def get(self, request, *args, **kwargs):
@@ -145,6 +145,13 @@ class DeclinedRequestDetailView(LoginRequiredMixin, DetailView):
             return super().get(request, **kwargs)
         else:
             return redirect('index')
+    def post(self, request, *args, **kwargs):
+
+        if  self.request.POST['request'] == 'Decline':
+            queryset = RequestPTO.objects.filter(id=self.request.POST['id']).update(request=4)
+        else:
+            queryset = RequestPTO.objects.filter(id=self.request.POST['id']).update(request=2)
+        return redirect('hr')
 
 
 class SuccessView(LoginRequiredMixin, TemplateView):

@@ -1,0 +1,163 @@
+/* Navber */
+.navbar {
+  background: pink;
+  height: 60px;
+}
+
+.black-text {
+  color: black;
+  }
+
+.navbar-brand:link, .navbar-brand:visited, .navbar-brand:hover, .navbar-brand:active {
+  color: black;
+}
+
+.navbar-nav:link, .navbar-nav:visited, .navbar-nav:hover, .navbar-nav:active{
+  color: black;
+}
+
+
+
+.request_form_page {
+  color: black;
+}
+
+.request_form_page:hover {
+  color: black;
+  text-decoration:none; 
+}
+
+.waiting_response {
+  color: black;
+}
+
+.waiting_response:hover {
+  color: black;
+  text-decoration:none; 
+}
+
+.approved_request {
+  color: black;
+}
+
+.approved_request :hover {
+  color: black;
+  text-decoration:none; 
+}
+
+.declined_request {
+  color: black;
+}
+
+.declined_request:hover {
+  color: black;
+  text-decoration:none; 
+}
+
+.logout {
+  color: black;
+}
+
+.logout:hover {
+  color: black;
+  text-decoration:none; 
+}
+
+
+.nav-item {
+  margin: 0px 10px 0px 0px;
+}
+
+footer {
+  background:pink;
+  text-align: center;
+  margin-top: 30px;
+}
+
+h1 {
+  text-align:center;
+}
+
+form {
+  margin-top: 20px;
+}
+
+p {
+  margin-top: 16px;
+  text-align:center;
+  margin-top: 0; 
+  margin-bottom: 1rem; 
+}
+
+.chose_supervisor_field {
+  display: inline-block
+}
+
+/* employee.html */
+.chose_supervisor {
+  margin: 16px;
+}
+
+.request_date_from {
+  margin: 16px;
+}
+
+.request_date_to {
+  margin: 16px;
+}
+
+.note {
+  margin: 16px;
+}
+
+.submit-request {
+  margin: 16px;
+}
+
+.success {
+  margin-top: 20px;
+}
+/* supervisor_page */
+
+.supervisorpage {
+  margin-top: 20px;
+}
+
+/* hr_page */
+
+.hrpage {
+  margin-top: 20px;
+}
+
+.approved_reqest_list {
+  margin: 20px;
+}
+
+.declined_reqest_list {
+  margin: 20px;
+}
+
+.request_detail {
+  background: #FFFFCC;
+  border-radius :8px;
+  box-shadow :0px 0px 5px silver;
+  padding: 10px 0px 10px 0px;
+  margin: 20px;
+}
+/* list */
+
+ul {
+  list-style: none;
+}
+
+.request_list {
+  background: #FFFFCC;
+  border-radius :8px;
+  box-shadow :0px 0px 5px silver;
+  line-height: 1.5;
+  padding: 10px 0px 10px 0px;
+}
+
+.break-word {
+  word-wrap: break-word;
+}

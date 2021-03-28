@@ -12,6 +12,7 @@ class User(AbstractUser):
 class RequestPTO(models.Model):
   post_employee = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, null=False, related_name ='post_employee')
   chose_supervisor = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, null=False, related_name ='chose_supervisor')
+  confirm_hr = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, null=True, related_name ='confirm_hr')
   request_date_from = models.DateTimeField(null=False)
   request_date_to = models.DateTimeField(null=False)
   note = models.TextField(null=True, blank=True, max_length=200)

@@ -26,6 +26,4 @@ urlpatterns = [
     path('', login_required(index_view), name='index'),
     path('', include('potform.urls')),
     path('', include('django.contrib.auth.urls')),
-
-
 ]

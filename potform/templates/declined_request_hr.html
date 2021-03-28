@@ -1,22 +1,31 @@
 {% extends 'base.html' %}
 
 {% block main %}
-  <div class="list_of_rquests">
-    <h1>Welcome {{ user.get_username }}!</h1>
-    <h2>Declined Reqest List</h2>
+<div class="form w-100 text-center">
+  <h2 class="hrpage">Welcome {{ user.get_username }}!</h2>
+</div>
+<h3 class="form w-100 text-center declined_reqest_list">Declined Reqest List History</h3>
     {% for request in request_list %}
-    <form action="{% url 'supervisor' %}" method="post">
-      <input type="hidden" name="id" value={{ request.id }}>
-      <li>
-        <h2>PTO Request</h2>
-        <p>ID: {{ request.id }} </p>
-        <p>Employee: {{ request.post_employee }}</p>
-        <p>From: {{ request.request_date_from|date:"y/n/j" }}</p>
-        <p>To: {{ request.request_date_to|date:"y/n/j" }}</p>
-        <p>Note: {{ request.note }}</p>
-        <a href="{% url 'declined_request_hr_detail' request.id %}" >Detail</a>
-      </li>
-    </form>
+    <div class="col-lg-3">
+      <form action="{% url 'supervisor' %}" method="post" class="form w-100 text-center m-auto">
+        <input type="hidden" name="id" value={{ request.id }}>
+        <ul class="p-2">
+          <li class="request_list m-0">
+            <h3>PTO Request</h3>
+            <p>Request ID: {{ request.id }} </p>
+            {% if request.confirm_hr %}
+            <p>Declined by: {{ request.confirm_hr }}</p>
+            {% else %}
+            <p>Declined by: {{ request.chose_supervisor }}</p>
+            {% endif %}
+            <p>Employee: {{ request.post_employee }}</p>
+            <p>From: {{ request.request_date_from|date:"y/n/j" }}</p>
+            <p>To: {{ request.request_date_to|date:"y/n/j" }}</p>
+            <p class="break-word">Note: {{ request.note }}</p>
+            <a class="btn btn-primary" href="{% url 'declined_request_hr_detail' request.id %}" >Detail</a>
+          </li>
+        </ul>
+      </form>
+    </div>
     {% endfor %}
-  </div>
 {% endblock main %}

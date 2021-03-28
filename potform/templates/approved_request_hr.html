@@ -1,22 +1,26 @@
 {% extends 'base.html' %}
 
 {% block main %}
-  <div class="list_of_rquests">
-    <h1>Welcome {{ user.get_username }}!</h1>
-    <h2>Approved Reqest List</h2>
-    {% for request in request_list %}
-    <form action="{% url 'supervisor' %}" method="post">
+<div class="form w-100 text-center">
+  <h2 class="hrpage">Welcome {{ user.get_username }}!</h2>
+</div>
+<h3 class="form w-100 text-center approved_reqest_list">Approved Reqest List History</h3>
+  {% for request in request_list %}
+  <div class="col-lg-3">
+    <form action="{% url 'supervisor' %}" method="post" class="form w-100 text-center m-auto">
       <input type="hidden" name="id" value={{ request.id }}>
-      <li>
-        <h2>PTO Request</h2>
-        <p>ID: {{ request.id }} </p>
-        <p>Employee: {{ request.post_employee }}</p>
-        <p>From: {{ request.request_date_from|date:"y/n/j" }}</p>
-        <p>To: {{ request.request_date_to|date:"y/n/j" }}</p>
-        <p>Note: {{ request.note }}</p>
-        <a href="{% url 'approved_request_hr_detail' request.id %}" >Detail</a>
-      </li>
+      <ul class="p-2">
+        <li class="request_list m-0">
+          <h3>PTO Request</h3>
+          <p>Request ID: {{ request.id }} </p>
+          <p>Employee: {{ request.post_employee }}</p>
+          <p>From: {{ request.request_date_from|date:"y/n/j" }}</p>
+          <p>To: {{ request.request_date_to|date:"y/n/j" }}</p>
+          <p class="break-word">Note: {{ request.note }}</p>
+          <a class="btn btn-primary" href="{% url 'approved_request_hr_detail' request.id %}" >Detail</a>
+        </li>
+      </ul>
     </form>
-    {% endfor %}
   </div>
+  {% endfor %}
 {% endblock main %}

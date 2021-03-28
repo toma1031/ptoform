@@ -10,17 +10,21 @@ class LoginForm(AuthenticationForm):
 class RequestPTOForm(forms.ModelForm):
   chose_supervisor = forms.ModelChoiceField(
                           queryset=get_user_model().objects.filter(is_supervisor=True),
-                          widget=forms.Select)
+                          widget=forms.Select, label="Chose supervisor:")
+
+  def __init__(self, *args, **kwargs):
+    super().__init__(*args, **kwargs)
+    self.fields['chose_supervisor'].widget.attrs["class"] = "chose_supervisor_field"
 
   request_date_from = forms.DateField(
                           widget=forms.DateInput(attrs={"type":"date"}),
-                          input_formats=['%Y-%m-%d'])
+                          input_formats=['%Y-%m-%d'], label="Request date from:")
 
   request_date_to = forms.DateField(
                           widget=forms.DateInput(attrs={"type":"date"}),
-                          input_formats=['%Y-%m-%d'])
+                          input_formats=['%Y-%m-%d'], label="Request date to:")
 
-  note = forms.Textarea()
+  note = forms.CharField(max_length=30)
 
   # request = forms.
 
