@@ -3,7 +3,11 @@
 <form action="" method="post" class="form w-100 text-center">
   <h1>Welcome {{ user.get_username }}!</h1>
   {% csrf_token %}
-  <p class="chose_supervisor">Chose Supervisor</p>{{ form.chose_supervisor }}
+  <div class="form-group">
+    <p class="chose_supervisor">Chose Supervisor</p>
+    <div>{{ form.chose_supervisor }}</div>
+  </div>
+  
   <p class="request_date_from">Request Date From</p>{{ form.request_date_from }}
   <p class="request_date_to">Request Date To</p>{{ form.request_date_to }}
   <p class="note">Note (within 30 characters)</p>{{ form.note }}

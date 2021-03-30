@@ -4,9 +4,7 @@
 <div class="form w-100 text-center">
   <h2 class="hrpage">Welcome {{ user.get_username }}!</h2>
 </div>
-<h3 class="form w-100 text-center declined_reqest_list">
-  Declined Reqest List History
-</h3>
+<h3 class="form w-100 text-center declined_reqest_list">Declined Reqest List History</h3>
 <div class="form w-100 p-3">
   <form action="" method="get" class="searchform form-inline">
     <div class="form-inline mr-3">
@@ -35,7 +33,7 @@
           <p>From: {{ request.request_date_from|date:"y/n/j" }}</p>
           <p>To: {{ request.request_date_to|date:"y/n/j" }}</p>
           <p class="break-word">Note: {{ request.note }}</p>
-          <a class="btn btn-primary" href="{% url 'declined_request_hr_detail' request.id %}" >Detail</a>
+          <a class="btn btn-primary" href="{% url 'declined_request_employee_detail' request.id %}" >Detail</a>
         </li>
       </ul>
     </div>

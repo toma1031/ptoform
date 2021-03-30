@@ -28,47 +28,57 @@
 
 .request_form_page {
   color: black;
+  transition: all  0.3s ease;
 }
 
 .request_form_page:hover {
   color: black;
   text-decoration:none; 
+  background-color: #FFEEFF;
 }
 
 .waiting_response {
   color: black;
+  transition: all  0.3s ease;
 }
 
 .waiting_response:hover {
   color: black;
-  text-decoration:none; 
+  text-decoration:none;
+  background-color: #FFEEFF;
 }
 
 .approved_request {
   color: black;
+  transition: all  0.3s ease;
 }
 
-.approved_request :hover {
+.approved_request:hover {
   color: black;
-  text-decoration: none; 
+  text-decoration:none;
+  background-color: #FFEEFF;
 }
 
 .declined_request {
   color: black;
+  transition: all  0.3s ease;
 }
 
 .declined_request:hover {
   color: black;
-  text-decoration:none; 
+  text-decoration:none;
+  background-color: #FFEEFF;
 }
 
 .logout {
   color: black;
+  transition: all  0.3s ease;
 }
 
 .logout:hover {
   color: black;
-  text-decoration:none; 
+  text-decoration:none;
+  background-color: #FFEEFF;
 }
 
 
@@ -172,4 +182,16 @@ ul {
 
 .break-word {
   word-wrap: break-word;
+}
+
+@media screen and (min-width:480px) {
+  .searchform {
+    float: right;
+  }
+}
+
+@media screen and (max-width:480px) {
+  .searchform {
+    justify-content: center;
+  }
 }

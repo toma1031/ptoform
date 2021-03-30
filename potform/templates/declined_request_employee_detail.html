@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block main %}
+  <div class="form w-100 text-center">
+    <h2 class="hrpage">Welcome {{ user.get_username }}!</h2>
+  </div>
+  <form action="{% url 'declined_request_employee_detail' request.pk %}" method="post" class="form w-100 text-center m-auto" >
+    <input type="hidden" name="id" value={{ request.id }}>
+    {% csrf_token %}
+    <div class="w-75 mx-auto text-center request_detail">
+      <h2>PTO Request</h2>
+      <p>Request ID: {{ request.id }} </p>
+      <p>Employee: {{ request.post_employee }}</p>
+      <p>From: {{ request.request_date_from|date:"y/n/j" }}</p>
+      <p>To: {{ request.request_date_to|date:"y/n/j" }}</p>
+      <p>Note: {{ request.note }}</p>
+      <a class="btn btn-primary" href="{% url 'declined_request_employee' %}">Back</a>
+      <input class="btn btn-primary" type="submit" value="Resubmit" name="request"/>
+    </div>
+  </form>
+{% endblock main %}

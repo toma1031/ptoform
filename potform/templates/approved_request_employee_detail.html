@@ -11,7 +11,7 @@
     <p>From: {{ request.request_date_from|date:"y/n/j" }}</p>
     <p>To: {{ request.request_date_to|date:"y/n/j" }}</p>
     <p class="break-word">Note: {{ request.note }}</p>
-    <a class="btn btn-primary" href="{% url 'approved_request_hr' %}">Back</a>
+    <a class="btn btn-primary" href="{% url 'approved_request_employee' %}">Back</a>
 </div>
 
 {% endblock main %}

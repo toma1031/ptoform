@@ -5,9 +5,21 @@
   <h2 class="hrpage">Welcome {{ user.get_username }}!</h2>
 </div>
 <h3 class="form w-100 text-center approved_reqest_list">Approved Reqest List History</h3>
+<div class="form w-100 p-3">
+  <form action="" method="get" class="searchform form-inline">
+    <div class="form-inline mr-3">
+      <span class="input-group-btn">
+        <input name="query" value="{{ request.GET.query }}" type="month" class="form-control p-3">
+      </span>
+    </div>
+    <div>
+      <button class="btn btn-warning" type="submit">Search</button>
+    </div>
+  </form>
+</div>
   {% for request in request_list %}
   <div class="col-lg-3">
-    <form action="{% url 'supervisor' %}" method="post" class="form w-100 text-center m-auto">
+    <div method="post" class="form w-100 text-center m-auto">
       <input type="hidden" name="id" value={{ request.id }}>
       <ul class="p-2">
         <li class="request_list m-0">
@@ -17,10 +29,14 @@
           <p>From: {{ request.request_date_from|date:"y/n/j" }}</p>
           <p>To: {{ request.request_date_to|date:"y/n/j" }}</p>
           <p class="break-word">Note: {{ request.note }}</p>
-          <a class="btn btn-primary" href="{% url 'approved_request_hr_detail' request.id %}" >Detail</a>
+          <a class="btn btn-primary" href="{% url 'approved_request_hr_detail' request.pk %}" >Detail</a>
         </li>
       </ul>
-    </form>
+    </div>
   </div>
   {% endfor %}
+  <div class="form w-100 p-3">
+    {% include "pagination.html" %}
+  </div>
+
 {% endblock main %}
