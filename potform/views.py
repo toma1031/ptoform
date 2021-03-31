@@ -14,7 +14,7 @@ from django.db.models import Q
 
 class LoginView(LoginView):
     form_class = LoginForm
-    template_name = "registration/login.html"
+    template_name = "login/login.html"
 
 # ここでURLの棲み分けをする, get_success_urlはLoginViewの関数の一種
     def get_success_url(self):

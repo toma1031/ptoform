@@ -6,11 +6,7 @@
       <!-- for employee --> 
       {% if user.is_employee %}
       <li class="nav-item"><a class="request_form_page" href="{% url 'employee' %}">Request Form Page</a></li>
-      {% endif %}
-      {% if user.is_employee %}
       <li class="nav-item"><a class="approved_request" href="{% url 'approved_request_employee' %}">Approved Request</a></li>
-      {% endif %}
-      {% if user.is_employee  %}
       <li class="nav-item"><a class="declined_request" href="{% url 'declined_request_employee' %}">Declined Request</a></li>
       {% endif %}
       <!-- for supervisor -->
@@ -20,11 +16,7 @@
       <!-- for <hr> -->
       {% if user.is_hr %}
       <li class="nav-item"><a class="waiting_response" href="{% url 'hr' %}">Waiting Response Page</a></li>
-      {% endif %}
-      {% if user.is_hr %}
       <li class="nav-item"><a class="approved_request" href="{% url 'approved_request_hr' %}">Approved Request</a></li>
-      {% endif %}
-      {% if user.is_hr %}
       <li class="nav-item"><a class="declined_request" href="{% url 'declined_request_hr' %}">Declined Request</a></li>
       {% endif %}
       {% if user.is_authenticated %}
@@ -38,6 +30,8 @@
       <!-- for employee --> 
       {% if user.is_employee %}
       <li class="nav-item"><a class="request_form_page" href="{% url 'employee' %}">Request Form Page</a></li>
+      <li class="nav-item"><a class="approved_request" href="{% url 'approved_request_employee' %}">Approved Request</a></li>
+      <li class="nav-item"><a class="declined_request" href="{% url 'declined_request_employee' %}">Declined Request</a></li>
       {% endif %}
       <!-- for supervisor -->
       {% if user.is_supervisor %}
@@ -46,11 +40,7 @@
       <!-- for <hr> -->
       {% if user.is_hr %}
       <li class="nav-item"><a class="waiting_response" href="{% url 'hr' %}">Waiting Response Page</a></li>
-      {% endif %}
-      {% if user.is_hr %}
       <li class="nav-item"><a class="approved_request" href="{% url 'approved_request_hr' %}">Approved Request</a></li>
-      {% endif %}
-      {% if user.is_hr %}
       <li class="nav-item"><a class="declined_request" href="{% url 'declined_request_hr' %}">Declined Request</a></li>
       {% endif %}
       {% if user.is_authenticated %}
