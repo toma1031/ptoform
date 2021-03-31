@@ -17,11 +17,11 @@ class RequestPTOForm(forms.ModelForm):
     self.fields['chose_supervisor'].widget.attrs["class"] = "chose_supervisor_field"
 
   request_date_from = forms.DateField(
-                          widget=forms.DateInput(attrs={"type":"date"}),
+                          widget=forms.DateInput(attrs={"type":"text"}),
                           input_formats=['%Y-%m-%d'], label="Request date from:")
 
   request_date_to = forms.DateField(
-                          widget=forms.DateInput(attrs={"type":"date"}),
+                          widget=forms.DateInput(attrs={"type":"text"}),
                           input_formats=['%Y-%m-%d'], label="Request date to:")
 
   note = forms.CharField(max_length=30)

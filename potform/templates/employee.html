@@ -1,19 +1,30 @@
 {% extends 'base.html' %}
+{% load widget_tweaks %}
 {% block main %}
 <form action="" method="post" class="form w-100 text-center">
-  <h1>Welcome {{ user.get_username }}!</h1>
-  {% csrf_token %}
-  <div class="form-group">
+  <div class="container">
+    <h1>Welcome {{ user.get_username }}!</h1>
+    {% csrf_token %}
     <p class="chose_supervisor">Chose Supervisor</p>
-    <div>{{ form.chose_supervisor }}</div>
-  </div>
-  
-  <p class="request_date_from">Request Date From</p>{{ form.request_date_from }}
-  <p class="request_date_to">Request Date To</p>{{ form.request_date_to }}
-  <p class="note">Note (within 30 characters)</p>{{ form.note }}
-    <input type="hidden" name="post_employee" value="{{ user }}" />
-  <div class="text-center submit-request">
-    <input class="btn btn-primary" type="submit" value="Request" />
+    <div class="row justify-content-center">
+      <div class="col-8 col-lg-4">{{ form.chose_supervisor|add_class:"form-control" }}</div>
+    </div>
+    <p class="request_date_from">Request Date From</p>
+    <div class="row justify-content-center">
+      <div class="col-8 col-lg-4">{{ form.request_date_from|add_class:"form-control" }}</div>
+    </div>
+    <p class="request_date_to">Request Date To</p>
+    <div class="row justify-content-center">
+      <div class="col-8 col-lg-4">{{ form.request_date_to|add_class:"form-control" }}</div>
+    </div>
+    <p class="note">Note (within 30 characters)</p>
+    <div class="row justify-content-center">
+      <div class="col-8 col-lg-4">{{ form.note|add_class:"form-control" }}</div>
+    </div>
+      <input type="hidden" name="post_employee" value="{{ user }}" />
+    <div class="text-center submit-request">
+      <input class="btn btn-primary" type="submit" value="Request" />
+    </div>
   </div>
 </form>
 </div>

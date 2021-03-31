@@ -28,7 +28,7 @@
       <li class="nav-item"><a class="declined_request" href="{% url 'declined_request_hr' %}">Declined Request</a></li>
       {% endif %}
       {% if user.is_authenticated %}
-      <a class="logout" href="{% url 'logout' %}">Logout</a>
+      <li class="nav-item"><a class="logout" href="{% url 'logout' %}">Logout</a></li>
       {% endif %}
     </ul>
   <!-- phone -->
