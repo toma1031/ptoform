@@ -46,7 +46,11 @@ class EmployeeView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form = form.save(commit=False)
         form.post_employee = self.request.user
+        form.confirm_hr = User.objects.filter(is_hr=True)[0]
         form.save()
+        form.chose_supervisor.email_user(
+                'PTO Request', 
+                'New Request Recieved. Please login to PTO Form and check the Request!')
         return redirect('success')
 
 class SupervisorView(LoginRequiredMixin, ListView):
@@ -65,9 +69,17 @@ class SupervisorView(LoginRequiredMixin, ListView):
     def post(self, request, *args, **kwargs):
 
         if  self.request.POST['request'] == 'Approve':
-            queryset = RequestPTO.objects.filter(id=self.request.POST['id']).update(request=1)
+            queryset = RequestPTO.objects.filter(id=self.request.POST['id'])
+            queryset.update(request=1)
+            queryset[0].confirm_hr.email_user(
+                'PTO Request', 
+                'New Request Recieved. Please login PTO Form and check the Request!')
         else:
-            queryset = RequestPTO.objects.filter(id=self.request.POST['id']).update(request=2)
+            queryset = RequestPTO.objects.filter(id=self.request.POST['id'])
+            queryset.update(request=2)
+            queryset[0].post_employee.email_user(
+                'Declined your PTO Request.', 
+                'Declined your Request. Please login to PTO Form and resubmit or send new request.')
         return redirect('supervisor')
 
     def get_queryset(self):
@@ -90,9 +102,17 @@ class HrView(LoginRequiredMixin, ListView):
     def post(self, request, *args, **kwargs):
 
         if  self.request.POST['request'] == 'Approve':
-            queryset = RequestPTO.objects.filter(id=self.request.POST['id']).update(request=4)
+            queryset = RequestPTO.objects.filter(id=self.request.POST['id'])
+            queryset.update(request=4)
+            queryset[0].post_employee.email_user(
+                'Approved your PTO Request!', 
+                'Congratulation! Your request is approved!')
         else:
-            queryset = RequestPTO.objects.filter(id=self.request.POST['id']).update(request=2, confirm_hr=self.request.user)
+            queryset = RequestPTO.objects.filter(id=self.request.POST['id'])
+            queryset.update(request=2, confirm_hr=self.request.user)
+            queryset[0].post_employee.email_use(
+                'Declined your PTO Request.', 
+                'Declined your Request. Please login to PTO Form and resubmit or send new request.')
         return redirect('hr')
 
 class ApprovedRequestView(LoginRequiredMixin, ListView):
