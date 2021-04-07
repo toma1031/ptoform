@@ -5,6 +5,7 @@ from potform.models import User
 
 @admin.register(User)
 class UserAdmin(UserAdmin):
+    list_display = ['id','username','is_superuser','is_employee', 'is_supervisor', 'is_hr']
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
         ('Personal info', {'fields': ('first_name', 'last_name')}),
