@@ -182,7 +182,7 @@ class EmployeeApprovedRequestView(LoginRequiredMixin, ListView):
         
         # q_request_date_from変数がある場合、すなわち入力値になにか入力されていた場合
         if q_request_date_from:
-            # filter()で絞り込みをおこなっています。Qオブジェクトは複雑なクエリを記述する場合に利用、
+            # filter()で絞り込みをおこなっています。OR条件でクエリセットを取得するためにQオブジェクトを利用、Qオブジェクトを利用はSQLのor条件を実現するものです。
             # ここではrequest_date_fromに対して「__icontains」を付与することによって、q_request_date_fromの値を含む部分一致の検索を実現し、そのフィルタリングされたRequestPTOをobject_listに代入
             object_list = RequestPTO.objects.filter(
                 Q(request_date_from__icontains=q_request_date_from))
