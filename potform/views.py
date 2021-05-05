@@ -178,6 +178,11 @@ class EmployeeApprovedRequestView(LoginRequiredMixin, ListView):
     # def get_querysetはリストオブジェクトにフィルタリングをかける時に使用できる
     def get_queryset(self):
         # q_request_date_from変数に入力値（ここでは日付）を取得したものを代入
+        # 'query'はHTMLの検索フォーム 
+        # <form action="" method="get" class="searchform form-inline">
+        # <input name="query" value="{{ request.GET.query }}" type="month" class="form-control p-3">の中のname="query"を参照している
+        # <button class="btn btn-warning" type="submit">Search</button>
+        # </form>
         q_request_date_from = self.request.GET.get('query')
         
         # q_request_date_from変数がある場合、すなわち入力値になにか入力されていた場合
