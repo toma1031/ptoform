@@ -159,24 +159,46 @@ class EmployeeApprovedRequestView(LoginRequiredMixin, ListView):
     paginate_by = 8
     template_name = "approved_request_employee.html"
 
+# Get関数はユーザーをそのViewにアクセスさせるか、させないかのフィルタリングに使用する
     def get(self, request, *args, **kwargs):
+      # ユーザー変数にログインしているユーザーのユーザーネームを代入
         user =  User.objects.filter(username=self.request.user)
+        # ユーザーがemployeeの場合
         if user and user[0].is_employee:
+          # ページにアクセスさせる
+          # super()はUpdateView。
+          # 親クラスは継承元のことを言うのでPostUpdateViewのことでは無い。
+          # requestにはurlなどの情報が入っている。
+          # アクセス先のurlやメタ情報など様々な情報が含まれている。
+          # kwargsにはアクセス時に送信されたキーワード引数が含まれる。
             return super().get(request, **kwargs)
         else:
+          # その他はトップページに飛ばす
             return redirect('index')
-
+    # def get_querysetはリストオブジェクトにフィルタリングをかける時に使用できる
     def get_queryset(self):
-        # return RequestPTO.objects.filter(request=4,post_employee=self.request.user)
-
+        # q_request_date_from変数に入力値（ここでは日付）を取得したものを代入
+        # 'query'はHTMLの検索フォーム 
+        # <form action="" method="get" class="searchform form-inline">
+        # <input name="query" value="{{ request.GET.query }}" type="month" class="form-control p-3">の中のname="query"を参照している
+        # <button class="btn btn-warning" type="submit">Search</button>
+        # </form>
         q_request_date_from = self.request.GET.get('query')
         
+        # q_request_date_from変数がある場合、すなわち入力値になにか入力されていた場合
         if q_request_date_from:
+            # filter()で絞り込みをおこなっています。OR条件でクエリセットを取得するためにQオブジェクトを利用、Qオブジェクトを利用はSQLのor条件を実現するものです。
+            # ここではrequest_date_fromに対して「__icontains」を付与することによって、q_request_date_fromの値を含む部分一致の検索を実現し、そのフィルタリングされたRequestPTOをobject_listに代入
             object_list = RequestPTO.objects.filter(
                 Q(request_date_from__icontains=q_request_date_from))
         else:
+            # q_request_date_from変数がない場合、すなわち入力値になにも入力されていない場合、
+            # RequestPTOのクエリが４のもので、employeeでログインしているユーザー自身のRequestPTOをobject_listに代入
             object_list = RequestPTO.objects.filter(request=4, post_employee=self.request.user)
+        # 最後にRequestPTOのクエリが４のもので、employeeでログインしているユーザー自身のobject_list、
+        # すなわちRequestPTOを返す
         return object_list.filter(request=4, post_employee=self.request.user)
+  
 
 
 class EmployeeApprovedRequestDetailView(LoginRequiredMixin, DetailView):
