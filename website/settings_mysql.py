@@ -16,7 +16,9 @@ import dj_database_url
 import configparser
 # ファイルの存在チェック用モジュール
 import errno
-
+# environをインポートして読み込む
+import environ
+env = environ.Env()  
 # iniファイルの読み込み
 config_ini = configparser.ConfigParser()
 config_ini_path = 'config.ini'
@@ -38,7 +40,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False #Trueから変更
+# DEBUG = False #Trueから変更
+DEBUG=env.bool('DEBUG', False)
 
 try:
     from .local_settings import *
@@ -179,7 +182,18 @@ EMAIL_HOST_USER = var1
 EMAIL_HOST_PASSWORD = var2
 
 # settings.pyにもSECRET_KEYの設定を追加します。
-if not DEBUG:
-    SECRET_KEY = os.environ['SECRET_KEY']
-    import django_heroku #追加
-    django_heroku.settings(locals()) #追加
+# if not DEBUG:
+#     SECRET_KEY = os.environ['SECRET_KEY']
+#     import django_heroku #追加
+#     django_heroku.settings(locals()) #追加
+
+# herokuの環境かどうか
+HEROKU_ENV = env.bool('DJANGO_HEROKU_ENV', default=False)
+
+# herokuの環境でない時は.envファイルを読む
+if not HEROKU_ENV:
+    env.read_env('.env')
+
+DEBUG=env.bool('DEBUG', False)
+...
+SECRET_KEY=env("SECRET_KEY")
