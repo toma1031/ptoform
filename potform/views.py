@@ -109,7 +109,7 @@ class HrView(LoginRequiredMixin, ListView):
                 'Congratulation! Your request is approved! https://ptoform.herokuapp.com/')
         else:
             queryset = RequestPTO.objects.filter(id=self.request.POST['id'])
-            queryset.update(request=2)
+            queryset.update(request=2, confirm_hr=self.request.user)
             queryset[0].post_employee.email_user(
                 'Declined your PTO Request.', 
                 'Declined your Request. Please login to PTO Form and resubmit or send new request. https://ptoform.herokuapp.com/')
