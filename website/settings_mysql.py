@@ -12,6 +12,21 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 import os
 
+# coding: utf-8
+import configparser
+# ファイルの存在チェック用モジュール
+import errno
+
+# iniファイルの読み込み
+config_ini = configparser.ConfigParser()
+config_ini_path = 'config.ini'
+
+# 指定したiniファイルが存在しない場合、エラー発生
+if not os.path.exists(config_ini_path):
+    raise FileNotFoundError(errno.ENOENT, os.strerror(errno.ENOENT), config_ini_path)
+
+config_ini.read(config_ini_path, encoding='utf-8')
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -142,10 +157,17 @@ PASSWORD_HASHERS = (
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
+# --------------------------------------------------
+# config,iniから値取得
+# --------------------------------------------------
+# config.iniの値取得
+var1 = config_ini['DEFAULT']['EMAIL']
+var2 = config_ini['DEFAULT']['PASSWORD']
+
 # Email setting
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.googlemail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'testoma1212@gmail.com'
-EMAIL_HOST_PASSWORD = 'gkqcxweapsekkojn'
+EMAIL_HOST_USER = var1
+EMAIL_HOST_PASSWORD = var2

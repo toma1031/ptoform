@@ -17,3 +17,6 @@ class RequestPTO(models.Model):
   request_date_to = models.DateTimeField(null=False)
   note = models.TextField(null=True, blank=True, max_length=200)
   request = models.IntegerField(default=3)
+
+  def __str__(self):
+    return str(self.request_date_from)
