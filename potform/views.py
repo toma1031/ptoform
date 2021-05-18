@@ -50,7 +50,7 @@ class EmployeeView(LoginRequiredMixin, CreateView):
         form.save()
         form.chose_supervisor.email_user(
                 'PTO Request', 
-                'New Request Recieved. Please login to PTO Form and check the Request! http://meccloud.us/')
+                'New Request Recieved. Please login to PTO Form and check the Request! https://ptoform.herokuapp.com/')
         return redirect('success')
 
 class SupervisorView(LoginRequiredMixin, ListView):
@@ -73,13 +73,13 @@ class SupervisorView(LoginRequiredMixin, ListView):
             queryset.update(request=1)
             queryset[0].confirm_hr.email_user(
                 'PTO Request', 
-                'New Request Recieved. Please login PTO Form and check the Request! http://meccloud.us/')
+                'New Request Recieved. Please login PTO Form and check the Request! https://ptoform.herokuapp.com/')
         else:
             queryset = RequestPTO.objects.filter(id=self.request.POST['id'])
             queryset.update(request=2)
             queryset[0].post_employee.email_user(
                 'Declined your PTO Request.', 
-                'Declined your Request. Please login to PTO Form and resubmit or send new request. http://meccloud.us/')
+                'Declined your Request. Please login to PTO Form and resubmit or send new request. https://ptoform.herokuapp.com/')
         return redirect('supervisor')
 
     def get_queryset(self):
@@ -106,13 +106,13 @@ class HrView(LoginRequiredMixin, ListView):
             queryset.update(request=4)
             queryset[0].post_employee.email_user(
                 'Approved your PTO Request!', 
-                'Congratulation! Your request is approved! http://meccloud.us/')
+                'Congratulation! Your request is approved! https://ptoform.herokuapp.com/')
         else:
             queryset = RequestPTO.objects.filter(id=self.request.POST['id'])
-            queryset.update(request=2, confirm_hr=self.request.user)
+            queryset.update(request=2)
             queryset[0].post_employee.email_use(
                 'Declined your PTO Request.', 
-                'Declined your Request. Please login to PTO Form and resubmit or send new request. http://meccloud.us/')
+                'Declined your Request. Please login to PTO Form and resubmit or send new request. https://ptoform.herokuapp.com/')
         return redirect('hr')
 
 class ApprovedRequestView(LoginRequiredMixin, ListView):
