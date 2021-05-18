@@ -170,16 +170,19 @@ MEDIA_URL = '/media/'
 # config,iniから値取得
 # --------------------------------------------------
 # config.iniの値取得
-var1 = config_ini['DEFAULT']['EMAIL']
-var2 = config_ini['DEFAULT']['PASSWORD']
+# var1 = config_ini['DEFAULT']['EMAIL']
+# var2 = config_ini['DEFAULT']['PASSWORD']
+
+EMAIL=env("EMAIL")
+PASSWORD=env("PASSWORD")
 
 # Email setting
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.googlemail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = var1
-EMAIL_HOST_PASSWORD = var2
+EMAIL_HOST_USER = EMAIL
+EMAIL_HOST_PASSWORD = PASSWORD
 
 # settings.pyにもSECRET_KEYの設定を追加します。
 # if not DEBUG:
@@ -195,5 +198,4 @@ if not HEROKU_ENV:
     env.read_env('.env')
 
 DEBUG=env.bool('DEBUG', False)
-...
 SECRET_KEY=env("SECRET_KEY")
