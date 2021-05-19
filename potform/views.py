@@ -44,10 +44,13 @@ class EmployeeView(LoginRequiredMixin, CreateView):
             return redirect('index')
 
     def form_valid(self, form):
+        # 仮のオブジェクトを作る(データベースにはまだ保存されない)
         form = form.save(commit=False)
+        # 申請したユーザーを入れる。
         form.post_employee = self.request.user
-        form.confirm_hr = User.objects.filter(is_hr=True)[0]
+        # オブジェクトを保存する(データベースに保存される)
         form.save()
+        # chose_supervisorにメールを送る
         form.chose_supervisor.email_user(
                 'PTO Request', 
                 'New Request Recieved. Please login to PTO Form and check the Request! https://ptoform.herokuapp.com/')
@@ -67,16 +70,18 @@ class SupervisorView(LoginRequiredMixin, ListView):
             return redirect('index')
 
     def post(self, request, *args, **kwargs):
-
+        # Approveのボタンを押したら、RequestPTOのrequestフィールドを１（Approve）にする。
         if  self.request.POST['request'] == 'Approve':
             queryset = RequestPTO.objects.filter(id=self.request.POST['id'])
-            queryset.update(request=1)
+            queryset.update(request=1, confirm_hr=self.request.user)
             queryset[0].confirm_hr.email_user(
                 'PTO Request', 
                 'New Request Recieved. Please login PTO Form and check the Request! https://ptoform.herokuapp.com/')
+        # そのほかのボタン（つまりDeclineボタン）を押したら、RequestPTOのrequestフィールドを２（Decline）にし、
+        # それをPostしたのはchose_supervisorということにする
         else:
             queryset = RequestPTO.objects.filter(id=self.request.POST['id'])
-            queryset.update(request=2)
+            queryset.update(request=2, chose_supervisor=self.request.user)
             queryset[0].post_employee.email_user(
                 'Declined your PTO Request.', 
                 'Declined your Request. Please login to PTO Form and resubmit or send new request. https://ptoform.herokuapp.com/')

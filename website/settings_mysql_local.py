@@ -92,18 +92,17 @@ WSGI_APPLICATION = 'website.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-# Heroku用DATABASES 
+
+# ローカル用DATABASES 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'heroku_060bbe5984d880a',
-        'USER': 'ba729b7fbd3971',
-        'PASSWORD': '478281d9',
-        'HOST': 'us-cdbr-east-03.cleardb.com',
+        'NAME': 'database_ptorequest',
+        'USER': 'root',
+        'PASSWORD': '',
         'PORT': 3306
     }
 }
-
 
 
 # Password validation
@@ -167,6 +166,9 @@ MEDIA_URL = '/media/'
 # var1 = config_ini['DEFAULT']['EMAIL']
 # var2 = config_ini['DEFAULT']['PASSWORD']
 
+# herokuの環境かどうか
+HEROKU_ENV = env.bool('DJANGO_HEROKU_ENV', default=False)
+
 # herokuの環境でない時は.envファイルを読む
 if not HEROKU_ENV:
     env.read_env('.env')
@@ -190,8 +192,4 @@ EMAIL_HOST_PASSWORD = PASSWORD
 #     SECRET_KEY = os.environ['SECRET_KEY']
 #     import django_heroku #追加
 #     django_heroku.settings(locals()) #追加
-
-# herokuの環境かどうか
-HEROKU_ENV = env.bool('DJANGO_HEROKU_ENV', default=False)
-
 

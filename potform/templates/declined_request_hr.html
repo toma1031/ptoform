@@ -26,8 +26,10 @@
         <li class="request_list m-0">
           <h3>PTO Request</h3>
           <p>Request ID: {{ request.id }} </p>
+          <!-- もしPost（Declineボタンを押した）したユーザーがHRがDeclineしたのであればDeclined by: hr と表示する -->
           {% if request.confirm_hr %}
           <p>Declined by: {{ request.confirm_hr }}</p>
+          <!-- もしPost（Declineボタンを押した）したユーザーがSupervisorであればDeclined by: DeclineしたSupervisorのユーザーネーム を表示する -->
           {% else %}
           <p>Declined by: {{ request.chose_supervisor }}</p>
           {% endif %}
