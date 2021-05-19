@@ -167,6 +167,9 @@ MEDIA_URL = '/media/'
 # var1 = config_ini['DEFAULT']['EMAIL']
 # var2 = config_ini['DEFAULT']['PASSWORD']
 
+# herokuの環境かどうか
+HEROKU_ENV = env.bool('DJANGO_HEROKU_ENV', default=False)
+
 # herokuの環境でない時は.envファイルを読む
 if not HEROKU_ENV:
     env.read_env('.env')
@@ -191,7 +194,6 @@ EMAIL_HOST_PASSWORD = PASSWORD
 #     import django_heroku #追加
 #     django_heroku.settings(locals()) #追加
 
-# herokuの環境かどうか
-HEROKU_ENV = env.bool('DJANGO_HEROKU_ENV', default=False)
+
 
 
