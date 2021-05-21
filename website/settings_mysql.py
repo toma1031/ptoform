@@ -19,7 +19,19 @@ import errno
 import environ
 env = environ.Env()  
 
+# herokuの環境かどうか
+HEROKU_ENV = env.bool('DJANGO_HEROKU_ENV', default=False)
 
+# herokuの環境でない時は.envファイルを読む
+if not HEROKU_ENV:
+    env.read_env('.env')
+
+DEBUG=env.bool('DEBUG', False)
+SECRET_KEY=env("SECRET_KEY")
+
+DATABASESPASSWORD=env("DATABASESPASSWORD")
+EMAIL=env("EMAIL")
+PASSWORD=env("PASSWORD")
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -98,7 +110,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'heroku_060bbe5984d880a',
         'USER': 'ba729b7fbd3971',
-        'PASSWORD': '478281d9',
+        'PASSWORD': DATABASESPASSWORD,
         'HOST': 'us-cdbr-east-03.cleardb.com',
         'PORT': 3306
     }
@@ -167,18 +179,6 @@ MEDIA_URL = '/media/'
 # var1 = config_ini['DEFAULT']['EMAIL']
 # var2 = config_ini['DEFAULT']['PASSWORD']
 
-# herokuの環境かどうか
-HEROKU_ENV = env.bool('DJANGO_HEROKU_ENV', default=False)
-
-# herokuの環境でない時は.envファイルを読む
-if not HEROKU_ENV:
-    env.read_env('.env')
-
-DEBUG=env.bool('DEBUG', False)
-SECRET_KEY=env("SECRET_KEY")
-
-EMAIL=env("EMAIL")
-PASSWORD=env("PASSWORD")
 
 # Email setting
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -188,11 +188,6 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = EMAIL
 EMAIL_HOST_PASSWORD = PASSWORD
 
-# settings.pyにもSECRET_KEYの設定を追加します。
-# if not DEBUG:
-#     SECRET_KEY = os.environ['SECRET_KEY']
-#     import django_heroku #追加
-#     django_heroku.settings(locals()) #追加
 
 
 

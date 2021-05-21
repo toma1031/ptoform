@@ -159,12 +159,6 @@ PASSWORD_HASHERS = (
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
-# --------------------------------------------------
-# config,iniから値取得
-# --------------------------------------------------
-# config.iniの値取得
-# var1 = config_ini['DEFAULT']['EMAIL']
-# var2 = config_ini['DEFAULT']['PASSWORD']
 
 # herokuの環境かどうか
 HEROKU_ENV = env.bool('DJANGO_HEROKU_ENV', default=False)
@@ -186,10 +180,4 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = EMAIL
 EMAIL_HOST_PASSWORD = PASSWORD
-
-# settings.pyにもSECRET_KEYの設定を追加します。
-# if not DEBUG:
-#     SECRET_KEY = os.environ['SECRET_KEY']
-#     import django_heroku #追加
-#     django_heroku.settings(locals()) #追加
 
