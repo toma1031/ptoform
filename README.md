@@ -13,14 +13,43 @@
 * Download project and start it with an editor(like VS code).
 * After that, go terminal command 'pip install -r requirements.txt'. You can download the library which you need to start App.
 * Set up mysql and create a database.
-* Create a config.ini file in the same directory as manage.py,
+* Create a .env file in the same directory as manage.py,
   Please write the contents as follows.
 
-  [DEFAULT]
-  EMAIL = Your Gmail Adress
-  PASSWORD = password(You sould generate Password. See bellow how to generate)
+  DATABASESPASSWORD=Your Cleardb Password(You sould generate Password. See bellow how to generate)
+  EMAIL=Your Gmail Adress
+  PASSWORD=password(You sould generate Password. See bellow how to generate)
 
-* How to generate password?
+* How to generate DATABASESPASSWORD?
+You do command like this
+$ heroku login
+# Get a list of apps you own
+$ heroku list
+
+$ heroku addons:create cleardb:ignite --app YourAppName
+# About The detailed plan is below
+https://elements.heroku.com/addons/cleardb
+
+$ heroku config --app YourAppName | grep CLEARDB
+# After this command, you will get the following info.
+CLEARDB_DATABASE_URL: mysql://username:yourpassword@hostname/databasename?reconnect=true
+
+# So you should change DATABASES on setting_mysql.py file like this
+DATABASES = {
+    'default': {
+        'ENGINE': 'databasename',
+        'NAME': 'putyournameonCLEARDB',
+        'USER': 'yourusername',
+        'PASSWORD': DATABASESPASSWORD,
+        'HOST': 'hostname',
+        'PORT': 3306
+    }
+}
+
+#Also you should add the following code in your .env file.
+DATABASESPASSWORD=yourpassword
+
+* How to generate PASSWORD for Gmail?
   Please check the following link.
   https://myaccount.google.com/-> security-> app passwords
 
